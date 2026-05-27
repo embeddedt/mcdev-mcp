@@ -34,12 +34,6 @@ jobs:
             arch: x64
             binary: target/mcdev-mcp.exe
 
-          # Windows arm64
-          - os: windows-11-arm
-            label: Windows arm64
-            arch: arm64
-            binary: target/mcdev-mcp.exe
-
     steps:
       - uses: actions/checkout@v4
 
