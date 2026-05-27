@@ -24,6 +24,7 @@
             <groupId>dev.nolij</groupId>
             <artifactId>zson</artifactId>
             <version>0.5.0</version>
+            <classifier>downgraded-17</classifier>
         </dependency>
     </dependencies>
     <build>
