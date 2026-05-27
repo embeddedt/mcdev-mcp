@@ -1,0 +1,61 @@
+name: GraalVM Native Image builds
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: ${{ matrix.label }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Linux x64
+          - os: ubuntu-latest
+            label: Linux x64
+            arch: x64
+            binary: target/mcdev-mcp
+
+          # Linux arm64
+          - os: ubuntu-24.04-arm
+            label: Linux arm64
+            arch: arm64
+            binary: target/mcdev-mcp
+
+          # macOS arm64 (Apple Silicon)
+          - os: macos-latest
+            label: macOS arm64
+            arch: arm64
+            binary: target/mcdev-mcp
+
+          # Windows x64
+          - os: windows-latest
+            label: Windows x64
+            arch: x64
+            binary: target/mcdev-mcp.exe
+
+          # Windows arm64
+          - os: windows-11-arm
+            label: Windows arm64
+            arch: arm64
+            binary: target/mcdev-mcp.exe
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '25'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
+
+      - name: Build native image
+        run: mvn -Pnative package -DskipTests
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcdev-mcp-${{ matrix.label }}
+          path: ${{ matrix.binary }}
+          if-no-files-found: error

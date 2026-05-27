@@ -1,0 +1,14 @@
+[
+  {
+    "name": "com.embeddedt.mcdevmcp.external.GetMinecraftSourcesTool$Params",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.embeddedt.mcdevmcp.enums.ModLoader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  }
+]
